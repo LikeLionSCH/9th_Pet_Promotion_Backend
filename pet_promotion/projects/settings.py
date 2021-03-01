@@ -45,10 +45,17 @@ INSTALLED_APPS = [
 
     #DRF Settings
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders'
 ]
 
 AUTH_USER_MODEL = 'user.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

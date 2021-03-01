@@ -10,4 +10,11 @@ class User(AbstractUser):
     def __str__(self):
         return self.name
 
+class Pet(models.Model):
+    user = models.ForeignKey("User", related_name="user", on_delete=models.CASCADE, db_column="user_id")
+    birth = models.DateField()
+    name = models.CharField(max_length=20)
+    image = models.ImageField(upload_to='images/%Y/%m/%d")
 
+    def __str__(self):
+        return self.name

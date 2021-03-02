@@ -45,16 +45,14 @@ INSTALLED_APPS = [
 
     #DRF Settings
     'rest_framework',
-    'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    'knox'
 ]
 
 AUTH_USER_MODEL = 'user.User'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
+    'DEFAULT_AUTHENTICATION_CLASSES': ("knox.auth.TokenAuthentication",),
 }
 
 MIDDLEWARE = [

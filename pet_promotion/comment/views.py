@@ -1,34 +1,24 @@
 from django.shortcuts import render
-import datetime
-from .forms import CommentForm
-# Create your views here.
+from rest_framework import viewsets
 
-def create_comment(request,post_id):
-    comment_form= CommentForm(request.POST)
-    if comment_form.is_valid():
-        temp_form = comment_form.save(commit=False)
-        temp_form.user = request.user
-        temp_form.post = Post.objects.get(pk=post_id)
-        temp_form.save()
+from .serializers import CommentSerializer
+from .models import Comment
 
-        return redirect('post_detail', post_id)
+@api_view(['POST'])
+def comment_create(request, post_id):
+    serializer = CommentSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(post=post_id)#post필드 값으로 post_id입력(어떤 게시물의 댓글인지 알기위함)
+        return Response(serializer.data)
 
-def update_comment(request,comment_id,post_id):
-    my_comment = Comment.objects.get(pk=comment_id)
-    if request.method == "POST":
-        if request.user == my_comment.user:
-            updated_form= CommentForm(request.POST, instance=my_comment)
-            if updated_form.is_valid():
-                updated_form.save()
-                return redirect('post_detail', post_id)
-            temp_form = comment_form.save(commit=False)
-    return redirect('post_detail', post_id)
-
-def delete_comment(request, post_id, comment_id):
-    my_comment = Comment.objects.get(pk=comment_id)
-    if request.user == my_comment.user:
-        my_comment.delete()
-        return redirect('post_detail', post_id)
-
+@api_view(['PUT','DELETE']) #PUT : 데이터 수정할 때, DELETE : 데이터 삭제 할 때
+def comment_update_and_delete(request, post_id, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if request.method == 'PUT':
+        serializer = CommentSerializer(data=request.data, instance=comment)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'message':'update'})
     else:
-        raise PermissionDenied
+        comment.delete()
+    	return Response({'message':'delete'})

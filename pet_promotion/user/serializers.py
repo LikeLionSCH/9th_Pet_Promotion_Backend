@@ -2,25 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from .models import User, Pet
 from board.models import Post, Comment
-'''
-class LoginSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = (
-            'username',
-            'password',
-        )
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = (
-            'id',
-            'username',
-            'email',
-            'password',
-        )
-'''
 
 # 접속 유저인지 확인
 class UserSerializer(serializers.ModelSerializer):

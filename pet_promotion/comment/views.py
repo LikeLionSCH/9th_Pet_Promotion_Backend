@@ -21,4 +21,4 @@ def comment_update_and_delete(request, post_id, comment_id):
             return Response({'message':'update'})
     else:
         comment.delete()
-    	return Response({'message':'delete'})
+        return Response({'message':'delete'})

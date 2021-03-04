@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate
 from .models import User, Pet
 from board.models import Post, Comment
 
-
 # 접속 유저인지 확인
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

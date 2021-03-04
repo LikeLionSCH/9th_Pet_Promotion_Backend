@@ -35,5 +35,3 @@ class PostDeleteAPIView(DestroyAPIView):
     serializer_class = PostSerializer
     lookup_field = 'id'
 
-
-

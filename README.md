@@ -8,8 +8,6 @@
 
 [최세환](https://github.com/Mactto)
 
-[강민서](https://github.com/mseo39)
-
 ## ✔ 체크리스트  
 - [x] User
 - [x] Post

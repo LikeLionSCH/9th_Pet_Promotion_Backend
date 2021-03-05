@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from knox.models import AuthToken
 
 from .models import User
-from .serializers import LoginSerializer, UserSerializer
+from .serializers import LoginSerializer
 
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer

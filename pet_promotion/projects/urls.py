@@ -20,12 +20,14 @@ from django.urls import path, include
 from django.conf.urls import url
 from rest_framework import routers
 from board.views import (
-    PostUpdateAPIView, PostDeleteAPIView, PostViewSet ,PostCreateViewSet,
+    PostUpdateAPIView, PostDeleteAPIView, PostViewSet ,PostCreateViewSet, CommentUpdateAPIView, CommentDeleteAPIView, CommentViewSet, CommentCreateViewSet
 )
 
 router = routers.DefaultRouter()
 router.register('post', PostViewSet, basename='post')
 router.register('post-create', PostCreateViewSet, basename='post_create')
+router.register('comment', CommentViewSet, basename='comment')
+router.register('comment-create', CommentCreateViewSet, basename='comment_create')
 
 urlpatterns = [
     path('api/', include(router.urls)),
@@ -33,5 +35,7 @@ urlpatterns = [
     path('user/', include('user.urls')),
     url('api/post/(?P<id>[\w-]+)/edit/$', PostUpdateAPIView.as_view(), name='post_update'),
     url('api/post/(?P<id>[\w-]+)/delete/$', PostDeleteAPIView.as_view(), name='post_delete'),
+    url('api/comment/(?P<id>[\w-]+)/edit/$', CommentUpdateAPIView.as_view(), name='comment_update'),
+    url('api/comment/(?P<id>[\w-]+)/delete/$', CommentDeleteAPIView.as_view(), name='comment_delete'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
